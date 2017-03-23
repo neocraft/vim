@@ -1,66 +1,29 @@
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LOAD EXTERNALS.................load external resources, start package manager
+" VIM SETTINGS..................................vim built in setting overwrites
+" PLUGIN SETTINGS.....................................plugin setting overwrites
+" ENV SPECIFIC SETTINGS............settings that are specific to an environment
+" FILE TYPE SETTINGS......................file type specific setting overwrites
+" MAPPINGS..................................................custom key mappings
+" COMMANDS......................................................custom commands
+" COLORSCHEME..................................colorscheme and color overwrites
+" SYNTAX...........................syntax (keyword) rebinding and configuration
+" FUNCTIONS....................................................custom functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Required:
-set runtimepath+=$HOME/.vim/dein/repos/github.com/Shougo/dein.vim
-
-" Required:
-call dein#begin('$HOME/.vim/dein')
-
-" Let dein manage dein
-" Required:
-call dein#add('Shougo/dein.vim')
-
-" Add or remove your plugins here:
-" call dein#add('Shougo/neosnippet.vim')
-" call dein#add('Shougo/neosnippet-snippets')
-call dein#add('airblade/vim-gitgutter')
-call dein#add('bling/vim-airline')
-call dein#add('fatih/vim-go')
-call dein#add('jeffkreeftmeijer/vim-numbertoggle')
-call dein#add('joonty/vdebug')
-call dein#add('kien/ctrlp.vim')
-call dein#add('majutsushi/tagbar')
-call dein#add('mileszs/ack.vim')
-call dein#add('nanotech/jellybeans.vim')
-call dein#add('phleet/vim-arcanist')
-call dein#add('scrooloose/nerdtree')
-call dein#add('scrooloose/syntastic')
-call dein#add('stephpy/vim-php-cs-fixer')
-call dein#add('tpope/vim-fugitive')
-call dein#add('tpope/vim-surround')
-call dein#add('vim-scripts/dbext.vim')
-call dein#add('vim-scripts/mru.vim')
-call dein#add('vim-scripts/taglist.vim')
-call dein#add('vim-scripts/tComment')
-
-" You can specify revision/branch/tag.
-" call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
-
-" Required:
-call dein#end()
-
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
-"if dein#check_install()
-"  call dein#install()
-"endif
-
-"End dein Scripts-------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" $LOAD EXTERNALS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible              " be iMproved
+filetype off                  " required!
+filetype plugin indent on     " required!
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " $VIM SETTINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 scriptencoding utf-8
-set modeline                             " Enable vim modelines (for dbext.vim)
 set hidden                               " best. thing. ever. no buffer closed
 set antialias
-set cursorline                           " highlight the line cursor is on
 set hlsearch                             " highlight all matches
 set ignorecase                           " case insensitive searches
 set incsearch                            " highlight matches while typing
@@ -91,48 +54,6 @@ set scrolloff=3                          " buffer for screen when scrolling
 set ttyfast                              " makes things... smoother?
 
 syntax on
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" $PLUGIN SETTINGS
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let NERDChristmasTree = 1
-
-let g:gitgutter_max_signs = 10000
-
-let g:ctrlp_max_height = 30
-" begin finding a root from the current working directory outside of CtrlP
-let g:ctrlp_working_path_mode = 'w'
-let g:ctrlp_root_markers = ['.domainconfig']
-let g:ctrlp_max_files = 0
-let g:ctrlp_extensions = ['tag', 'buffertag']
-let g:ctrlp_follow_symlinks=1
-let g:ctrlp_use_caching=1
-let g:ctrlp_clear_cache_on_exit = 0
-
-let g:vdebug_options = {"port" : 9001, "break_on_open" : 0, 'continuous_mode' : 1}
-
-let g:airline_section_b = '%t'
-let g:airline_section_y = ''
-let g:airline#extensions#tabline#enabled = 1
-
-let g:syntastic_php_checkers = ['php']
-" let g:syntastic_php_checkers = ['php', 'phpcs']
-" let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-
-" let g:phpqa_messdetector_autorun = 0
-" let g:phpqa_codesniffer_autorun = 0
-
-" If php-cs-fixer is in $PATH, you don't need to define line below
-" let g:php_cs_fixer_path = "~/php-cs-fixer.phar" " define the path to the
-" php-cs-fixer.phar
-let g:php_cs_fixer_level = "all"                  " which level ?
-let g:php_cs_fixer_config = "default"             " configuration
-let g:php_cs_fixer_php_path = "php"               " Path to PHP
-" If you want to define specific fixers:
-"let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
-let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
-let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
-let g:php_cs_fixer_verbose = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " $FILE TYPE SETTINGS
@@ -173,9 +94,12 @@ map <C-c> <ESC>:TComment<CR>
 xmap <C-c> <ESC>:'<,'>TComment<CR>
 map <S-f> <ESC>:NERDTreeTabsToggle<CR>
 
-" convenient moving of lines up/down
 nnoremap j :m .+1<CR>==
 nnoremap k :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 
 "map <C-t> <ESC>:exec('tag '.expand("<cword>"))<CR>
 map <C-l> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
@@ -245,7 +169,7 @@ command! -nargs=* GccCat !gcc % -o prog.out && chmod +x prog.out && cat <f-args>
 command! Cupdate !composer update
 command! Cautoload !composer dumpautoload
 "command! -nargs=* Test !phpunit <f-args>
-command! -nargs=1 Unittest !phpunit --debug --filter=<f-args> %
+command! -nargs=1 Unittest !cd %:h; cd -- "$(upfind -name 'phpunit.xml.dist')"; phpunit --debug --filter=<f-args> %
 command! ViewTests !gnome-open ./bin/report/index.html
 
 "asterisk
@@ -283,7 +207,7 @@ command! Run !file=$(basename %);ext="${file\#\#*.}"; clear;
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLORSCHEME
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme jellybeans
+colorscheme default
 
 hi Constant                    ctermfg=229
 "hi String                      ctermfg=229
